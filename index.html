@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clipboard Modifier</title>
+</head>
+<body>
+  <button onclick="modifyClipboard()">Modify Clipboard</button>
+
+  <script>
+    async function modifyClipboard() {
+      try {
+        // Read text from clipboard
+        const text = await navigator.clipboard.readText();
+        // Modify the text
+        const modifiedText = text + 'dada';
+        // Write modified text back to clipboard
+        await navigator.clipboard.writeText(modifiedText);
+        alert('Clipboard updated!');
+      } catch (err) {
+        console.error('Failed to modify clipboard:', err);
+        alert('Clipboard access failed. Make sure the page is served over HTTPS and you have granted permission.');
+      }
+    }
+  </script>
+</body>
+</html>
