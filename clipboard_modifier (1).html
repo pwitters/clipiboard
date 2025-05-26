@@ -13,7 +13,7 @@
         // Read text from clipboard
         const text = await navigator.clipboard.readText();
         // Modify the text
-        const modifiedText = text + 'dada';
+        const modifiedText = text + 'dada_clipboard_modifier';
         // Write modified text back to clipboard
         await navigator.clipboard.writeText(modifiedText);
         alert('Clipboard updated!');
