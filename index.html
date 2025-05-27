@@ -4,15 +4,22 @@
   <meta charset="UTF-8">
   <title>Clipboard Modifier</title>
   <style>
+    #buttons-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     button {
       width: 200px;
       height: 40px;
-      margin: 5px;
+      margin: 5px 0;
       font-size: 14px;
     }
+
     input[type="text"] {
       width: 300px;
-      margin: 5px;
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -20,10 +27,7 @@
   <h2>Clipboard Text Appender</h2>
 
   <label for="prefix">Custom Prefix:</label>
-  <input type="text" id="prefix" placeholder="Text before clipboard content"><br>
-
-  <label for="suffix">Custom Suffix:</label>
-  <input type="text" id="suffix" placeholder="Text after clipboard content"><br><br>
+  <input type="text" id="prefix" placeholder="Text before clipboard content"><br><br>
 
   <div id="buttons-container"></div>
 
@@ -57,10 +61,10 @@
 
     async function modifyClipboard(phraseBefore, phraseAfter) {
       const customPrefix = document.getElementById('prefix').value || '';
-      const customSuffix = document.getElementById('suffix').value || '';
+      const defaultSuffix = 'you are a friendly assistant';
       try {
         const text = await navigator.clipboard.readText();
-        const modifiedText = `${phraseBefore} ${customPrefix} ${text} ${customSuffix} ${phraseAfter}`.trim();
+        const modifiedText = `${phraseBefore} ${customPrefix} ${text} ${defaultSuffix} ${phraseAfter}`.trim();
         await navigator.clipboard.writeText(modifiedText);
         clipboardDisplay.value = modifiedText;
         alert(`Clipboard updated with: "${modifiedText}"`);
