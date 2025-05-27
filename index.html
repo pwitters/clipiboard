@@ -5,18 +5,46 @@
   <title>Clipboard Modifier</title>
 </head>
 <body>
-  <button onclick="modifyClipboard()">Modify Clipboard</button>
+  <h2>Clipboard Text Appender</h2>
+
+  <div id="buttons-container"></div>
+  <br>
+  <label for="clipboardContent">Modified Clipboard Content:</label><br>
+  <textarea id="clipboardContent" rows="4" cols="50" readonly></textarea>
 
   <script>
-    async function modifyClipboard() {
+    // Each object has a label for the button and a phrase to append
+    const buttons = [
+      { label: 'Add Magic', phrase: 'trillala' },
+      { label: 'Add Rhythm', phrase: 'humpapa' },
+      { label: 'Add Jungle Beat', phrase: 'zimbazoo' },
+      { label: 'Add Lullaby', phrase: 'lalelu' },
+      { label: 'Add Boom', phrase: 'bingbang' },
+      { label: 'Add Tick-Tock', phrase: 'tiktak' },
+      { label: 'Add Wobble', phrase: 'wobble' },
+      { label: 'Add Snap', phrase: 'snappy' },
+      { label: 'Add Zing', phrase: 'zingzang' },
+      { label: 'Add Thunder', phrase: 'boomboom' }
+    ];
+
+    const container = document.getElementById('buttons-container');
+    const clipboardDisplay = document.getElementById('clipboardContent');
+
+    buttons.forEach(({ label, phrase }) => {
+      const btn = document.createElement('button');
+      btn.textContent = label;
+      btn.onclick = () => modifyClipboard(phrase);
+      container.appendChild(btn);
+      container.appendChild(document.createElement('br'));
+    });
+
+    async function modifyClipboard(phrase) {
       try {
-        // Read text from clipboard
         const text = await navigator.clipboard.readText();
-        // Modify the text
-        const modifiedText = text + 'dada_index';
-        // Write modified text back to clipboard
+        const modifiedText = text + ' ' + phrase;
         await navigator.clipboard.writeText(modifiedText);
-        alert('Clipboard updated!');
+        clipboardDisplay.value = modifiedText;
+        alert(`Clipboard updated with "${phrase}"!`);
       } catch (err) {
         console.error('Failed to modify clipboard:', err);
         alert('Clipboard access failed. Make sure the page is served over HTTPS and you have granted permission.');
